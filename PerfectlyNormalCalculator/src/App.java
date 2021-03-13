@@ -30,12 +30,14 @@ public class App extends JFrame{
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
+		textpanel.setLayout(new BorderLayout());
 		add(textpanel,gbc);
 
 		textdisplay.setEditable(false);
-		textdisplay.setPreferredSize( new Dimension(600,120));
+		Font font = new Font("SansSerif", Font.BOLD,70);
+		textdisplay.setFont(font);
 		textdisplay.setHorizontalAlignment(JTextField.RIGHT);
-		textdisplay.setText("placeholder");
+		textdisplay.setText(".");
 		textpanel.add(textdisplay);
 
 		// Calculator Panel is added
@@ -50,14 +52,10 @@ public class App extends JFrame{
 		add(calculatorpanel,gbc);
 
 		// Declare initial String variables
-		String AC = "AC";
-		String Backspace = "<";
-		String Percent = "%";
-		String Divide = "÷";
-		String Multiply = "x";
-		String Subtract = "-";
-		String Add = "+";
-		String Compute = "=";
+		String divide = "÷";
+		String multiply = "x";
+		String subtract = "-";
+		String add = "+";
 		String nine = "9";
 		String eight = "8";
 		String seven = "7";
@@ -75,37 +73,78 @@ public class App extends JFrame{
 		gbc.weighty = 1;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
-		JButton buttonAC = new JButton(AC);
+		JButton buttonAC = new JButton("AC");
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		buttonAC.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	clearTextField();
+        	}  
+    	});
 		calculatorpanel.add(buttonAC,gbc);
-		JButton buttonBackspace = new JButton(Backspace);
+		JButton buttonBackspace = new JButton("<");
 		gbc.gridx = 1;
 		gbc.gridy = 0;
+		buttonBackspace.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextFieldBackspace();
+        	}  
+    	});
 		calculatorpanel.add(buttonBackspace,gbc);
-		JButton buttonPercent = new JButton(Percent);
+		JButton buttonPercent = new JButton("%");
 		gbc.gridx = 2;
 		gbc.gridy = 0;
+		buttonPercent.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				String percent = " " + divide + " " + one + zero + zero;
+            	updateTextField(percent);
+        	}  
+    	});
 		calculatorpanel.add(buttonPercent,gbc);
-		JButton buttonDivide = new JButton(Divide);
+		CalcButton buttonDivide = new CalcButton(divide);
 		gbc.gridx = 3;
 		gbc.gridy = 0;
+		buttonDivide.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(" " + buttonDivide.value + " ");
+        	}  
+    	});
 		calculatorpanel.add(buttonDivide,gbc);
-		JButton buttonMultiply = new JButton(Multiply);
+		CalcButton buttonMultiply = new CalcButton(multiply);
 		gbc.gridx = 3;
 		gbc.gridy = 1;
+		buttonMultiply.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(" " + buttonMultiply.value + " ");
+        	}  
+    	});
 		calculatorpanel.add(buttonMultiply,gbc);
-		JButton buttonSubtract = new JButton(Subtract);
+		CalcButton buttonSubtract = new CalcButton("-");
 		gbc.gridx = 3;
 		gbc.gridy = 2;
+		buttonSubtract.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(" " + buttonSubtract.value + " ");
+        	}  
+    	});
 		calculatorpanel.add(buttonSubtract,gbc);
-		JButton buttonAdd = new JButton(Add);
+		CalcButton buttonAdd = new CalcButton(add);
 		gbc.gridx = 3;
 		gbc.gridy = 3;
+		buttonAdd.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(" " + buttonAdd.value + " ");
+        	}  
+    	});
 		calculatorpanel.add(buttonAdd,gbc);
-		JButton buttonCompute = new JButton(Compute);
+		JButton buttonCompute = new JButton("=");
 		gbc.gridx = 3;
 		gbc.gridy = 4;
+		buttonCompute.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	computeWithTextField();
+        	}  
+    	});
 		calculatorpanel.add(buttonCompute,gbc);
 
 
@@ -115,51 +154,106 @@ public class App extends JFrame{
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
 		numpad.setLayout(new GridBagLayout());
-		JButton button7 = new JButton(seven);
+		CalcButton button7 = new CalcButton(seven);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		button7.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button7.value);
+        	}  
+    	});
 		numpad.add(button7,gbc);
-		JButton button8 = new JButton(eight);
+		CalcButton button8 = new CalcButton(eight);
 		gbc.gridx = 1;
 		gbc.gridy = 0;
+		button8.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button8.value);
+        	}  
+    	});
 		numpad.add(button8,gbc);
-		JButton button9 = new JButton(nine);
+		CalcButton button9 = new CalcButton(nine);
 		gbc.gridx = 2;
 		gbc.gridy = 0;
+		button9.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button9.value);
+        	}  
+    	});
 		numpad.add(button9,gbc);
-		JButton button4 = new JButton(four);
+		CalcButton button4 = new CalcButton(four);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
+		button4.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button4.value);
+        	}  
+    	});
 		numpad.add(button4,gbc);
-		JButton button5 = new JButton(five);
+		CalcButton button5 = new CalcButton(five);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
+		button5.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button5.value);
+        	}  
+    	});
 		numpad.add(button5,gbc);
-		JButton button6 = new JButton(six);
+		CalcButton button6 = new CalcButton(six);
 		gbc.gridx = 2;
 		gbc.gridy = 1;
+		button6.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button6.value);
+        	}  
+    	});
 		numpad.add(button6,gbc);
-		JButton button1 = new JButton(one);
+		CalcButton button1 = new CalcButton(one);
 		gbc.gridx = 0;
 		gbc.gridy = 2;
+		button1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button1.value);
+        	}  
+    	});
 		numpad.add(button1,gbc);
-		JButton button2 = new JButton(two);
+		CalcButton button2 = new CalcButton(two);
 		gbc.gridx = 1;
 		gbc.gridy = 2;
+		button2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button2.value);
+        	}  
+    	});
 		numpad.add(button2,gbc);
-		JButton button3 = new JButton(three);
+		CalcButton button3 = new CalcButton(three);
 		gbc.gridx = 2;
 		gbc.gridy = 2;
+		button3.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button3.value);
+        	}  
+    	});
 		numpad.add(button3,gbc);
-		JButton buttonDecimal = new JButton(decimal);
+		CalcButton buttonDecimal = new CalcButton(decimal);
 		gbc.gridx = 2;
 		gbc.gridy = 3;
+		buttonDecimal.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextFieldDecimal(buttonDecimal.value);
+        	}  
+    	});
 		numpad.add(buttonDecimal,gbc);
-		JButton button0 = new JButton(zero);
+		CalcButton button0 = new CalcButton(zero);
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.gridwidth = 2;
 		gbc.gridheight = 1;
+		button0.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+            	updateTextField(button0.value);
+        	}  
+    	});
 		numpad.add(button0,gbc);
 
 		gbc.weightx = 0.75;
@@ -182,11 +276,35 @@ public class App extends JFrame{
     	this.textdisplay.setText(output);
     }
 
-    public void updateTextField(int input){
+	public void updateTextFieldDecimal(String input){
     	String currentText = this.textdisplay.getText();
+    	if (currentText.charAt(currentText.length() - 1) == '.'){
+    			return;
+    	}
     	StringBuilder textbuilder = new StringBuilder(currentText);
     	textbuilder.append(input);
     	String output = textbuilder.toString();
     	this.textdisplay.setText(output);
+    }
+
+    public void updateTextFieldBackspace(){
+    	String currentText = this.textdisplay.getText();
+    	if (currentText.length() < 1){
+    		return;
+    	}
+    	StringBuilder textbuilder = new StringBuilder(currentText);
+    	int endIndex = textbuilder.length() - 1;
+    	textbuilder.deleteCharAt(endIndex);
+    	String output = textbuilder.toString();
+    	this.textdisplay.setText(output);
+    }
+
+    public void clearTextField(){
+    	this.textdisplay.setText("");
+    }
+
+    public void computeWithTextField(){
+    	String currentText = this.textdisplay.getText();
+    	// Calculator.compute(currentText);
     }
 }
