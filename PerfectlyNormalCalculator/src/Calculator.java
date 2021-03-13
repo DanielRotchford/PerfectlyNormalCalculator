@@ -44,7 +44,7 @@ public class Calculator {
     }
     //between each 2d array is minus, between each array is plus
     public String calculate(String calculation){
-        System.out.println(calculation);
+        
         String[] subsets = (calculation.split("\\+"));
        
         

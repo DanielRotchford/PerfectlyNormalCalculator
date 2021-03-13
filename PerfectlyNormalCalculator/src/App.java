@@ -71,7 +71,7 @@ public class App extends JFrame{
 		add(calculatorpanel,gbc);
 
 		// Declare initial String variables
-		String divide = "÷";
+		String divide = "/";
 		String multiply = "x";
 		String subtract = "-";
 		String add = "+";
