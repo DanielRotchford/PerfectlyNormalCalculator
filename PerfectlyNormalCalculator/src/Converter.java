@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Converter {
 
     public Converter(){
@@ -8,7 +11,20 @@ public class Converter {
 
     public String toPrimeFactor(int input){
 
-        return "";
+        int n = input;
+
+        List<Integer> factors = new ArrayList<Integer>();
+        for (int i = 2; i <= n / i; i++) {
+            while (n % i == 0) {
+                factors.add(i);
+                n /= i;
+            }
+        }
+        if (n > 1) {
+            factors.add(n);
+        }
+
+        return factors.toString();
     }
 
     //roman numerals 
@@ -34,17 +50,10 @@ public class Converter {
         return Integer.toBinaryString(input);
     }
 
-    //exponential form 
-    public String toExponential(int input){
-
-        return "";
+    //Hexadecimal
+    public String toHexadecimal(int input){
+        return Integer.toHexString(input);
     }
-
-    //floating point notation
-
-
-
-
 
 
     
