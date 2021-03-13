@@ -31,11 +31,14 @@ public class Converter {
 
     //binary 
     public String toBinary(int input){
-
-        return "hi";
+        return Integer.toBinaryString(input);
     }
 
     //exponential form 
+    public String toExponential(int input){
+
+        return "";
+    }
 
     //floating point notation
 
