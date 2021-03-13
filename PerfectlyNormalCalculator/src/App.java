@@ -161,7 +161,7 @@ public class App extends JFrame{
 		gbc.gridy = 4;
 		buttonCompute.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
-            	computeWithTextField();
+            	Calculate();
         	}  
     	});
 		calculatorpanel.add(buttonCompute,gbc);
@@ -326,4 +326,11 @@ public class App extends JFrame{
     	String currentText = this.textdisplay.getText();
     	// Calculator.compute(currentText);
     }
+
+	public void Calculate() {
+		Calculator c = new Calculator();
+		String calcString = textdisplay.getText();
+		String result = c.calculate(calcString);
+		textdisplay.setText(result);
+	}
 }

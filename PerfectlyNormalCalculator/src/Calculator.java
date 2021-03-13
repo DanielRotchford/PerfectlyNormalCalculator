@@ -2,17 +2,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Calculator {
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
         //Calculate1("7 + 10 * 21");
         calculate("8.4 + 42 * 3 - 7.6 * 9");
-    }
+    } */
 
     public static final String add = "+";
     public static final String subtract = "-";
     public static final String multiply = "*";
     public static final String divide = "/";
 
-    public static Double Calculate1(String calc) {
+    public Double Calculate1(String calc) {
         String[] calculate = calc.split(" "); //splits string 
         double total = 0.0;
         List<Double> numbers = new ArrayList<Double>(); //will contain all numbers
@@ -43,7 +43,7 @@ public class Calculator {
         return total;
     }
     //between each 2d array is minus, between each array is plus
-    public static void calculate(String calculation){
+    public String calculate(String calculation){
         String[] subsets = (calculation.split("\\+"));
        
         
@@ -54,11 +54,11 @@ public class Calculator {
 
         }
         
-        merge(subsubsets);
-        
+        String result = merge(subsubsets).toString();
+        return result;
 
     }
-    private static void merge(String[][] values){
+    private Double merge(String[][] values){
         
         double result = 0;
         
@@ -73,7 +73,7 @@ public class Calculator {
             result += combine(temp);
             
         }
-            System.out.println(result);
+            return result;
     }
 
     private static Double combine(ArrayList<Double> vals){
