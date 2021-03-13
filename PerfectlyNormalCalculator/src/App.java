@@ -8,6 +8,7 @@ public class App extends JFrame{
 	GridBagConstraints gbc = new GridBagConstraints();
 	JPanel textpanel = new JPanel();
 	JTextField textdisplay = new JTextField();
+	JTextField prompter = new JTextField();
 	JPanel calculatorpanel = new JPanel();
 	JPanel numpad = new JPanel();
 
@@ -30,15 +31,33 @@ public class App extends JFrame{
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
-		textpanel.setLayout(new BorderLayout());
+		textpanel.setLayout(new GridBagLayout());
 		add(textpanel,gbc);
 
+		gbc.weightx = 1;
+		gbc.weighty = 0.5;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		Font promptfont = new Font("SansSerif", Font.BOLD,30);
+		prompter.setText("PROMPT");
+		prompter.setEditable(false);
+		prompter.setFont(promptfont);
+		prompter.setHorizontalAlignment(JTextField.CENTER);
+		textpanel.add(prompter, gbc);
+
+		gbc.weightx = 1;
+		gbc.weighty = 0.5;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
 		textdisplay.setEditable(false);
-		Font font = new Font("SansSerif", Font.BOLD,70);
-		textdisplay.setFont(font);
+		Font displayfont = new Font("SansSerif", Font.BOLD,50);
+		textdisplay.setFont(displayfont);
 		textdisplay.setHorizontalAlignment(JTextField.RIGHT);
-		textdisplay.setText(".");
-		textpanel.add(textdisplay);
+		textpanel.add(textdisplay, gbc);
 
 		// Calculator Panel is added
 		gbc.fill = GridBagConstraints.BOTH;
