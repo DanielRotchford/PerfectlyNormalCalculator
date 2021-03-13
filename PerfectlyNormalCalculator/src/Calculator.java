@@ -9,7 +9,7 @@ public class Calculator {
 
     public static final String add = "+";
     public static final String subtract = "-";
-    public static final String multiply = "*";
+    public static final String multiply = "x";
     public static final String divide = "/";
 
     public Double Calculate1(String calc) {
@@ -44,6 +44,7 @@ public class Calculator {
     }
     //between each 2d array is minus, between each array is plus
     public String calculate(String calculation){
+        System.out.println(calculation);
         String[] subsets = (calculation.split("\\+"));
        
         
