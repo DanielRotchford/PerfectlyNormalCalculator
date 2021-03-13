@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Calculator {
     public static void main(String[] args) throws Exception {
         //Calculate1("7 + 10 * 21");
-        calculate("8 + 42 * 3 - 7 * 9");
+        calculate("8.4 + 42 * 3 - 7.6 * 9");
     }
 
     public static final String add = "+";
@@ -12,16 +12,16 @@ public class Calculator {
     public static final String multiply = "*";
     public static final String divide = "/";
 
-    public static Integer Calculate1(String calc) {
+    public static Double Calculate1(String calc) {
         String[] calculate = calc.split(" "); //splits string 
-        int total = 0;
-        List<Integer> numbers = new ArrayList<Integer>(); //will contain all numbers
+        double total = 0.0;
+        List<Double> numbers = new ArrayList<Double>(); //will contain all numbers
         List<String> operations = new ArrayList<String>(); //will contain all operations
         for(int i = 0; i < calculate.length; i++) {
-            System.out.println(calculate[i]);
+            
             try {
                 
-                numbers.add(Integer.parseInt(calculate[i]));
+                numbers.add(Double.parseDouble(calculate[i]));
                 
             }
             catch (NumberFormatException e) {
@@ -60,11 +60,11 @@ public class Calculator {
     }
     private static void merge(String[][] values){
         
-        int result = 0;
+        double result = 0;
         
         for(String[] subset : values){
             
-            ArrayList<Integer> temp = new ArrayList<Integer>();
+            ArrayList<Double> temp = new ArrayList<Double>();
             for(String equation : subset){
                 
                 temp.add(Calculate1(equation.strip()));
@@ -76,8 +76,8 @@ public class Calculator {
             System.out.println(result);
     }
 
-    private static int combine(ArrayList<Integer> vals){
-        int temp = vals.get(0);
+    private static Double combine(ArrayList<Double> vals){
+        Double temp = vals.get(0);
         
 
         if(vals.size() > 1){
