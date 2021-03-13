@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Calculator {
     /*public static void main(String[] args) throws Exception {
@@ -55,11 +56,11 @@ public class Calculator {
 
         }
         
-        String result = merge(subsubsets).toString();
+        String result = merge(subsubsets);
         return result;
 
     }
-    private Double merge(String[][] values){
+    private String merge(String[][] values){
         
         double result = 0;
         
@@ -74,7 +75,27 @@ public class Calculator {
             result += combine(temp);
             
         }
-            return result;
+        Converter converter = new Converter();
+        Random rn = new Random();
+        int switchCase = rn.nextInt(5);
+        String resultString;
+        switch (switchCase) {
+            case 0:
+                resultString = converter.toPrimeFactor(result);
+                break;
+            case 1:
+                resultString = converter.toRomanNumerals(result);
+                break;
+            case 2:
+                resultString = converter.toBinary(result) + " (binary)";
+                break;
+            case 3:
+                resultString = converter.toHexadecimal(result) + " (hex)";
+                break;
+            default:
+                resultString = String.valueOf(result); 
+        }
+        return resultString;
     }
 
     private static Double combine(ArrayList<Double> vals){

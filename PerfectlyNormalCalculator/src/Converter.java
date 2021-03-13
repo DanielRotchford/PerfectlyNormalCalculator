@@ -9,26 +9,25 @@ public class Converter {
 
     //prime factorisation 
 
-    public String toPrimeFactor(int input){
+    public String toPrimeFactor(double  input){
 
-        int n = input;
 
-        List<Integer> factors = new ArrayList<Integer>();
-        for (int i = 2; i <= n / i; i++) {
-            while (n % i == 0) {
-                factors.add(i);
-                n /= i;
+        List<Double> factors = new ArrayList<Double>();
+        for (int i = 2; i <= input / i; i++) {
+            while (input % i == 0) {
+                factors.add((double) i);
+                input /= i;
             }
         }
-        if (n > 1) {
-            factors.add(n);
+        if (input > 1) {
+            factors.add(input);
         }
 
         return factors.toString();
     }
 
     //roman numerals 
-    public String toRomanNumerals(int num){
+    public String toRomanNumerals(double num){
 
         int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
         String[] romanLiterals = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
@@ -46,13 +45,13 @@ public class Converter {
     }
 
     //binary 
-    public String toBinary(int input){
-        return Integer.toBinaryString(input);
+    public String toBinary(double input){
+        return Integer.toBinaryString((int) input);
     }
 
     //Hexadecimal
-    public String toHexadecimal(int input){
-        return Integer.toHexString(input);
+    public String toHexadecimal(double input){
+        return Integer.toHexString((int) input);
     }
 
 
