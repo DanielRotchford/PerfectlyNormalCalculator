@@ -11,6 +11,7 @@ public class App extends JFrame{
 	JPanel calculatorpanel = new JPanel();
 	JPanel numpad = new JPanel();
 	boolean customDisplay = false;
+	boolean doubleO = false;
 	int acPresses;
 
     public static void main(String[] args) throws Exception {
@@ -193,7 +194,23 @@ public class App extends JFrame{
 					clearTextField();
 					customDisplay = false;
 				}
-            	Calculate();
+				if (textdisplay.getText().equals("3.14")){
+					textdisplay.setText("Today is Pi day!");
+					customDisplay = true;
+				} else if (textdisplay.getText().equals("42")){
+					textdisplay.setText("Life, the Universe, and Everything");
+					customDisplay = true;
+				} else if (textdisplay.getText().equals("00")){
+					textdisplay.setText("License to Kill");
+					customDisplay = true;
+					doubleO = true;
+				} else if (textdisplay.getText().equals("837737") && doubleO){
+					textdisplay.setText("V E S P E R");
+					customDisplay = true;
+					doubleO = true;
+				} else {
+					Calculate();
+				}
         	}  
     	});
 		calculatorpanel.add(buttonCompute,gbc);
@@ -421,15 +438,6 @@ public class App extends JFrame{
     }
 
 	public void Calculate(){
-		if (this.textdisplay.getText().equals("3.14")){
-			this.textdisplay.setText("Today is Pi day!");
-			this.customDisplay = true;
-			return;
-		} else if (this.textdisplay.getText().equals("42")){
-			this.textdisplay.setText("No.");
-			this.customDisplay = true;
-			return;
-		}
 		Calculator c = new Calculator();
 		String calcString = textdisplay.getText();
 		String result = c.calculate(calcString);
