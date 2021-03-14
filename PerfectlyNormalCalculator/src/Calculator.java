@@ -79,7 +79,10 @@ public class Calculator {
         Random rn = new Random();
         int switchCase;
         String resultString;
-        if (result >= 0) {
+        if(result == 42.0 || result == 3.14 || result == 3.141 || result == 3.1415 || result == 3.14159 || result == 3.14592) {
+            resultString = String.valueOf(result);
+        }
+        else if (result >= 0) {
             switchCase = rn.nextInt(5);
             switch (switchCase) {
             case 0:
