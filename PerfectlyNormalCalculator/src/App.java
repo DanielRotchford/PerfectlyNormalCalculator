@@ -406,7 +406,13 @@ public class App extends JFrame{
     }
 
     public void clearTextField(){
-    	this.textdisplay.setText("");
+    	if (this.customDisplay){
+    		this.textdisplay.setText("");
+    	} else if (this.textdisplay.getText().equals("1379")){
+    		this.textdisplay.setText("CASIO");
+    	} else {
+    		this.textdisplay.setText("");
+    	}
     }
 
     public void computeWithTextField(){
@@ -417,6 +423,10 @@ public class App extends JFrame{
 	public void Calculate(){
 		if (this.textdisplay.getText().equals("3.14")){
 			this.textdisplay.setText("Today is Pi day!");
+			this.customDisplay = true;
+			return;
+		} else if (this.textdisplay.getText().equals("42")){
+			this.textdisplay.setText("No.");
 			this.customDisplay = true;
 			return;
 		}
