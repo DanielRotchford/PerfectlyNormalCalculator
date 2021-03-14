@@ -21,7 +21,7 @@ public class App extends JFrame{
     public App(){
     	setTitle("Calculator App");
     	setLayout(new GridBagLayout());
-		setSize(600,600);
+		setSize(1500,900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		acPresses = 0;
 
