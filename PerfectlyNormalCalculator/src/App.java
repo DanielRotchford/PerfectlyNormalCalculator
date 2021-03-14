@@ -8,9 +8,10 @@ public class App extends JFrame{
 	GridBagConstraints gbc = new GridBagConstraints();
 	JPanel textpanel = new JPanel();
 	JTextField textdisplay = new JTextField();
-	JTextField prompter = new JTextField();
 	JPanel calculatorpanel = new JPanel();
 	JPanel numpad = new JPanel();
+	boolean customDisplay = false;
+	int acPresses;
 
     public static void main(String[] args) throws Exception {
         App app = new App();
@@ -22,6 +23,7 @@ public class App extends JFrame{
     	setLayout(new GridBagLayout());
 		setSize(600,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		acPresses = 0;
 
 		// Headbar is added
 		gbc.fill = GridBagConstraints.BOTH;
@@ -35,26 +37,13 @@ public class App extends JFrame{
 		add(textpanel,gbc);
 
 		gbc.weightx = 1;
-		gbc.weighty = 0.5;
+		gbc.weighty = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
-		Font promptfont = new Font("SansSerif", Font.BOLD,30);
-		prompter.setText("PROMPT");
-		prompter.setEditable(false);
-		prompter.setFont(promptfont);
-		prompter.setHorizontalAlignment(JTextField.CENTER);
-		textpanel.add(prompter, gbc);
-
-		gbc.weightx = 1;
-		gbc.weighty = 0.5;
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
 		textdisplay.setEditable(false);
-		Font displayfont = new Font("SansSerif", Font.BOLD,50);
+		Font displayfont = new Font("SansSerif", Font.BOLD,60);
 		textdisplay.setFont(displayfont);
 		textdisplay.setHorizontalAlignment(JTextField.RIGHT);
 		textpanel.add(textdisplay, gbc);
@@ -93,74 +82,117 @@ public class App extends JFrame{
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
 		JButton buttonAC = new JButton("AC");
+		buttonAC.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		buttonAC.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
             	clearTextField();
+            	acPresses++;
+            	if (acPresses == 12){
+            		buttonAC.setText("AC/DC");
+            	} else if (acPresses > 12){
+            		buttonAC.setText("AC");
+            		acPresses = 0;
+            	}
         	}  
     	});
 		calculatorpanel.add(buttonAC,gbc);
 		JButton buttonBackspace = new JButton("<");
+		buttonBackspace.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		buttonBackspace.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextFieldBackspace();
         	}  
     	});
 		calculatorpanel.add(buttonBackspace,gbc);
 		JButton buttonPercent = new JButton("%");
+		buttonPercent.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		buttonPercent.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				String percent = " " + divide + " " + one + zero + zero;
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(percent);
         	}  
     	});
 		calculatorpanel.add(buttonPercent,gbc);
 		CalcButton buttonDivide = new CalcButton(divide);
+		buttonDivide.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 3;
 		gbc.gridy = 0;
 		buttonDivide.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(" " + buttonDivide.value + " ");
         	}  
     	});
 		calculatorpanel.add(buttonDivide,gbc);
 		CalcButton buttonMultiply = new CalcButton(multiply);
+		buttonMultiply.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 3;
 		gbc.gridy = 1;
 		buttonMultiply.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(" " + buttonMultiply.value + " ");
         	}  
     	});
 		calculatorpanel.add(buttonMultiply,gbc);
 		CalcButton buttonSubtract = new CalcButton("-");
+		buttonSubtract.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 3;
 		gbc.gridy = 2;
 		buttonSubtract.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(" " + buttonSubtract.value + " ");
         	}  
     	});
 		calculatorpanel.add(buttonSubtract,gbc);
 		CalcButton buttonAdd = new CalcButton(add);
+		buttonAdd.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 3;
 		gbc.gridy = 3;
 		buttonAdd.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(" " + buttonAdd.value + " ");
         	}  
     	});
 		calculatorpanel.add(buttonAdd,gbc);
 		JButton buttonCompute = new JButton("=");
+		buttonCompute.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 3;
 		gbc.gridy = 4;
 		buttonCompute.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	Calculate();
         	}  
     	});
@@ -174,102 +206,157 @@ public class App extends JFrame{
 		gbc.gridheight = 1;
 		numpad.setLayout(new GridBagLayout());
 		CalcButton button7 = new CalcButton(seven);
+		button7.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		button7.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button7.value);
         	}  
     	});
 		numpad.add(button7,gbc);
 		CalcButton button8 = new CalcButton(eight);
+		button8.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		button8.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button8.value);
         	}  
     	});
 		numpad.add(button8,gbc);
 		CalcButton button9 = new CalcButton(nine);
+		button9.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		button9.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button9.value);
         	}  
     	});
 		numpad.add(button9,gbc);
 		CalcButton button4 = new CalcButton(four);
+		button4.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		button4.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button4.value);
         	}  
     	});
 		numpad.add(button4,gbc);
 		CalcButton button5 = new CalcButton(five);
+		button5.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		button5.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button5.value);
         	}  
     	});
 		numpad.add(button5,gbc);
 		CalcButton button6 = new CalcButton(six);
+		button6.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		button6.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button6.value);
         	}  
     	});
 		numpad.add(button6,gbc);
 		CalcButton button1 = new CalcButton(one);
+		button1.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		button1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button1.value);
         	}  
     	});
 		numpad.add(button1,gbc);
 		CalcButton button2 = new CalcButton(two);
+		button2.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		button2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button2.value);
         	}  
     	});
 		numpad.add(button2,gbc);
 		CalcButton button3 = new CalcButton(three);
+		button3.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		button3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button3.value);
         	}  
     	});
 		numpad.add(button3,gbc);
 		CalcButton buttonDecimal = new CalcButton(decimal);
+		buttonDecimal.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 2;
 		gbc.gridy = 3;
 		buttonDecimal.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextFieldDecimal(buttonDecimal.value);
         	}  
     	});
 		numpad.add(buttonDecimal,gbc);
 		CalcButton button0 = new CalcButton(zero);
+		button0.setFont(new Font("SansSerif", Font.BOLD, 20));
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.gridwidth = 2;
 		gbc.gridheight = 1;
 		button0.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
             	updateTextField(button0.value);
         	}  
     	});
@@ -327,7 +414,12 @@ public class App extends JFrame{
     	// Calculator.compute(currentText);
     }
 
-	public void Calculate() {
+	public void Calculate(){
+		if (this.textdisplay.getText().equals("3.14")){
+			this.textdisplay.setText("Today is Pi day!");
+			this.customDisplay = true;
+			return;
+		}
 		Calculator c = new Calculator();
 		String calcString = textdisplay.getText();
 		String result = c.calculate(calcString);
