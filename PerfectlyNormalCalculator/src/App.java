@@ -180,40 +180,11 @@ public class App extends JFrame {
 					clearTextField();
 					customDisplay = false;
 				}
-				updateTextField(" " + buttonAdd.value + " ");
-			}
-		});
-		calculatorpanel.add(buttonAdd, gbc);
-		JButton buttonCompute = new JButton("=");
-		buttonCompute.setFont(new Font("SansSerif", Font.BOLD, 20));
-		gbc.gridx = 3;
-		gbc.gridy = 4;
-		buttonCompute.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (customDisplay) {
-					clearTextField();
-					customDisplay = false;
-				}
-				if (textdisplay.getText().equals("3.14")) {
-					textdisplay.setText("Today is Pi day!");
-					customDisplay = true;
-				} else if (textdisplay.getText().equals("42")) {
-					textdisplay.setText("Life, the Universe, and Everything");
-					customDisplay = true;
-				} else if (textdisplay.getText().equals("00")) {
-					textdisplay.setText("License to Kill");
-					customDisplay = true;
-					doubleO = true;
-				} else if (textdisplay.getText().equals("837737") && doubleO) {
-					textdisplay.setText("V E S P E R");
-					customDisplay = true;
-					doubleO = true;
-				} else {
-					Calculate();
-				}
-			}
-		});
-		calculatorpanel.add(buttonCompute, gbc);
+            	updateTextField(" " + buttonAdd.value + " ");
+        	}  
+    	});
+		calculatorpanel.add(buttonAdd,gbc);
+
 
 		// Setting up Numpad
 		gbc.weightx = 1;
@@ -385,6 +356,45 @@ public class App extends JFrame {
 		gbc.gridwidth = 3;
 		gbc.gridheight = 4;
 		calculatorpanel.add(numpad, gbc);
+
+		JButton buttonCompute = new JButton("=");
+		buttonCompute.setFont(new Font("SansSerif", Font.BOLD, 20));
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridwidth = 1;
+		gbc.gridheight = 1;
+		gbc.gridx = 3;
+		gbc.gridy = 4;
+		buttonCompute.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){  
+				if (customDisplay){
+					clearTextField();
+					customDisplay = false;
+				}
+				if (textdisplay.getText().equals("3.14")){
+					textdisplay.setText("Today is Pi day!");
+					customDisplay = true;
+				} else if (textdisplay.getText().equals("42")){
+					textdisplay.setText("Life, the Universe, and Everything");
+					customDisplay = true;
+				} else if (textdisplay.getText().equals("00")){
+					textdisplay.setText("License to Kill");
+					customDisplay = true;
+					doubleO = !doubleO;
+					if (doubleO){
+						button0.setText("00");
+					} else {
+						button0.setText("0");
+					}
+				} else if (textdisplay.getText().equals("837737") && doubleO){
+					setTitle("V E S P E R");
+					customDisplay = true;
+				} else {
+					Calculate();
+				}
+        	}  
+    	});
+		calculatorpanel.add(buttonCompute,gbc);
 
 		// Make the window visible
 		setVisible(true);
