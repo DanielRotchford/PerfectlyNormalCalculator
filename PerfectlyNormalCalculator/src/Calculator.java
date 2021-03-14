@@ -89,10 +89,13 @@ public class Calculator {
                 resultString = converter.toPrimeFactor(result);
                 break;
             case 1:
-                resultString = converter.toRomanNumerals(result);
-                break;
+                double tolerance = 1E-15;
+                if(Math.floor(result) - result < tolerance) {
+                    resultString = converter.toRomanNumerals(result);
+                    break;
+            }
             case 2:
-                resultString = converter.toBinary(result) + " (binary Two's Complement)";
+                resultString = converter.toBinary(result) + " (binary)";
                 break;
             case 3:
                 resultString = converter.toHexadecimal(result) + " (hex)";
@@ -104,8 +107,11 @@ public class Calculator {
             switchCase = rn.nextInt(4);
             switch (switchCase) {
                 case 0:
-                resultString = "-" + converter.toRomanNumerals(result * -1);
-                break;
+                double tolerance = 1E-15;
+                if(Math.floor(result) - result < tolerance) {
+                    resultString = "-" + converter.toRomanNumerals(result * -1);
+                    break;
+                }
             case 1:
                 resultString = converter.toBinary(result) + " (binary Two's Complement)";
                 break;
