@@ -78,6 +78,7 @@ public class Calculator {
         Converter converter = new Converter();
         Random rn = new Random();
         int switchCase = rn.nextInt(5);
+      
         String resultString;
         switch (switchCase) {
             case 0:

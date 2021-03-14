@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Converter {
 
@@ -10,20 +11,65 @@ public class Converter {
     //prime factorisation 
 
     public String toPrimeFactor(double  input){
+        
+        int wholeInput = (int) input;
+      
+        String output = "";
+        List<String> factors = new ArrayList<String>();
 
-
-        List<Double> factors = new ArrayList<Double>();
         for (int i = 2; i <= input / i; i++) {
-            while (input % i == 0) {
-                factors.add((double) i);
-                input /= i;
+            
+            while (wholeInput % i == 0) {
+                factors.add(randomiseFactor(i));
+                wholeInput /= i;
+                
+              
             }
         }
         if (input > 1) {
-            factors.add(input);
+            factors.add(Integer.toString(wholeInput));
         }
+        for(int j = 0; j < factors.size(); j ++){
+            if(j < factors.size() - 1){ //removes time 1 at the end
+                output += factors.get(j) + "x";
+            } else{
+                output += factors.get(j);
+            }
+            
+            
+        }
+        return output;
+    }
+    private String randomiseFactor(int num){
+       
+        Random rn = new Random();
+        
+        int ranNumTop = rn.nextInt(num*3); //random for top of fraction
 
-        return factors.toString();
+        if(ranNumTop < 1){
+            ranNumTop = 1;
+        }
+        
+        int ranNumBottom = rn.nextInt(ranNumTop); //random for bottom of fraction
+        int newNumTop = num * ranNumTop;
+        
+        if(ranNumTop % 2 == 0){
+             
+            int newNumBottom = ranNumTop + ranNumBottom;//then need to remove the ranNumBottom
+            
+            return new String("(" + newNumTop + "/(" + newNumBottom + "-" +  ranNumBottom + "))" );
+
+
+        } else{
+            
+            int newNumBottom = ranNumTop - ranNumBottom;//then need to remove the ranNumBottom
+            return new String("(" + newNumTop + "/(" + newNumBottom + "+" +  ranNumBottom + "))" );
+
+        }
+       
+        
+
+
     }
 
     //roman numerals 
